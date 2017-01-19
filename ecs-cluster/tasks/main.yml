@@ -1,0 +1,14 @@
+---
+- name: Include profile for the Environment
+  include_vars: "{{ ecs_cluster_env_type }}.yml"
+
+- name: Create a local temp directory
+  command: mktemp -d -q "{{ lookup('env', 'TMPDIR') | default('/tmp', true) }}/ansible.{{ stack_vars_name }}-{{ ecs_cluster_aws_region }}.XXX"
+  register: ecs_cluster_temp_dir
+  changed_when: False
+
+- name: Build template
+  template:
+    src: cfn_ecs_cluster.yml
+    dest: "{{ ecs_cluster_temp_dir.stdout }}/template.yml"
+  changed_when: False

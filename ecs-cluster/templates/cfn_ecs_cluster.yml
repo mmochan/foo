@@ -1,0 +1,24 @@
+---
+Outputs:
+  clusterID:
+    Value: !Ref ECSCluster
+    Export:
+      Name: !Sub "${AWS::StackName}-clusterID"
+  dbHost:
+    Condition: CreateDBResources
+    Value: !GetAtt DatabaseCluster.Endpoint.Address
+    Export:
+      Name: !Sub "${AWS::StackName}-dbHost"
+
+  dbInstanceArn:
+    Condition: CreateDBResources
+    Value: !Sub "arn:aws:rds:${AWS::Region}:${AWS::AccountId}:db:${DatabaseInstanceMaster}"
+    Export:
+      Name: !Sub "${AWS::StackName}-dbInstanceArn"
+
+  dbPort:
+    Condition: CreateDBResources
+    Value: !GetAtt DatabaseCluster.Endpoint.Port
+    Export:
+      Name: !Sub "${AWS::StackName}-dbPort"
+
