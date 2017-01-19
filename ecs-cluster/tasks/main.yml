@@ -12,3 +12,6 @@
     src: cfn_ecs_cluster.yml
     dest: "{{ ecs_cluster_temp_dir.stdout }}/template.yml"
   changed_when: False
+
+- name: Add a debug
+  debug: msg="{{test}}"
