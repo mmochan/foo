@@ -15,3 +15,6 @@
 
 - name: Add a debug
   debug: msg="{{test}}"
+
+- name: Add a naming debug
+  debug: msg="{{naming}}"
